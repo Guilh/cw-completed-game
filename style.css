@@ -1,0 +1,194 @@
+/* Charity: water Brand Colors & Fonts
+
+Primary Colors:
+- Yellow:     #FFC907
+- Blue:       #2E9DF7
+
+Secondary Colors:
+- Light Blue: #8BD1CB
+- Green:      #4FCB53
+- Orange:     #FF902A
+- Red:        #F5402C
+- Dark Green: #159A48
+- Pink:       #F16061
+
+Fonts:
+- Proxima Nova
+- Avenir
+
+*/
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Avenir', Arial, sans-serif; /* Updated to use charity: water font */
+  margin: 0;
+  padding: 30px;
+  background-color: #8BD1CB; /* Light Blue - Secondary Brand Color */
+  color: #333;
+}
+
+.container {
+  max-width: 750px;
+  margin: 50px auto;
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #2E9DF7; /* Blue - Primary Brand Color */
+  display: flex;
+  flex-direction: column; /* Stack the logo and title vertically */
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  height: auto; /* Maintain proportional height */
+  max-width: 240px; /* Set a maximum width for the logo */
+  display: block;
+}
+
+.game-title {
+  font-size: 44px; /* Slightly smaller font size for the title */
+  font-weight: bold;
+  color: #2E9DF7; /* Blue - Primary Brand Color */
+}
+
+h1 img {
+  height: 50px;
+  margin-right: 15px;
+  display: block;
+}
+
+.game-instructions {
+  font-size: 18px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+  background-color: #f5f5f5;
+  padding: 15px 0;
+  border-radius: 8px;
+}
+
+.stats p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+.grid-cell {
+  background-color: #e8e8e8;
+  border-radius: 8px;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.water-can-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px;
+  height: 70px;
+  /* Ensure the wrapper is properly centered */
+}
+
+.water-can {
+  width: 100%;
+  height: 100%;
+  background-image: url('img/water-can.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  border-radius: 50%;
+  animation: popUp 0.5s cubic-bezier(0.17, 0.67, 0.34, 2);
+  transform-origin: center; /* Ensure scaling happens from the center */
+}
+
+@keyframes popUp {
+  0% {
+    transform: scale(0.5); /* Start scaling from the center */
+  }
+  100% {
+    transform: scale(1); /* End scaling at full size */
+  }
+}
+
+button {
+  background-color: #FFC907; /* Yellow - Primary Brand Color */
+  color: #664400; /* Even darker yellow for better contrast */
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #FF902A; /* Orange - Secondary Brand Color */
+  color: #4D2B00; /* Even darker orange for better contrast */
+}
+
+button:disabled {
+  background-color: #ccc; /* Gray color for disabled state */
+  cursor: not-allowed;
+  color: #666;
+}
+
+#reset-game {
+  background-color: #8BD1CB; /* Light Blue - Secondary Brand Color */
+  color: #173D3A; /* Even darker blue-green for better contrast */
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#reset-game:hover {
+  background-color: #2E9DF7; /* Blue - Primary Brand Color */
+  color: #0F2E5A; /* Even darker blue for better contrast */
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Add spacing between buttons */
+  margin-top: 30px;
+}
+
+#achievements {
+  margin-top: 20px;
+  text-align: center;
+}

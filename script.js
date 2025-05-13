@@ -1,10 +1,17 @@
 // Game configuration and state variables
-const GOAL_CANS = 25;        // Total items needed to collect
-let currentCans = 0;         // Current number of items collected
-let gameActive = false;      // Tracks if game is currently running
-let spawnInterval;          // Holds the interval for spawning items
-let timer; // Holds the interval for the countdown timer
-let timeLeft = 30; // Initial time in seconds
+const DIFFICULTY_SETTINGS = {
+  easy: { goalCans: 15, timeLimit: 40, spawnInterval: 1200 },
+  normal: { goalCans: 20, timeLimit: 30, spawnInterval: 1000 },
+  hard: { goalCans: 25, timeLimit: 25, spawnInterval: 800 }
+};
+
+let currentDifficulty = 'normal';
+let gameSettings = DIFFICULTY_SETTINGS[currentDifficulty];
+let currentCans = 0;
+let gameActive = false;
+let spawnInterval;
+let timer;
+let timeLeft;
 
 const winningMessages = [
   "Great job! You're a water-saving hero!",
@@ -76,16 +83,20 @@ function updateTimer() {
 function startGame() {
   if (gameActive) return; // Prevent starting a new game if one is already active
   gameActive = true;
-  timeLeft = 30; // Reset the timer
+  gameSettings = DIFFICULTY_SETTINGS[currentDifficulty];
+  timeLeft = gameSettings.timeLimit; // Reset the timer
   document.getElementById('timer').textContent = timeLeft; // Update the timer display
   createGrid(); // Set up the game grid
-  spawnInterval = setInterval(spawnWaterCan, 1000); // Spawn water cans every second
+  spawnInterval = setInterval(spawnWaterCan, gameSettings.spawnInterval); // Spawn water cans based on difficulty
   timer = setInterval(updateTimer, 1000); // Start the countdown timer
 
   // Disable the start button and update its text
   const startButton = document.getElementById('start-game');
   startButton.disabled = true;
   startButton.textContent = 'Game in Progress...';
+
+  // Disable difficulty select during game
+  document.getElementById('difficulty-select').disabled = true;
 }
 
 function displayEndMessage() {
@@ -93,7 +104,7 @@ function displayEndMessage() {
   messageContainer.innerHTML = ''; // Clear any existing messages
 
   let message;
-  if (currentCans >= 20) {
+  if (currentCans >= gameSettings.goalCans) {
     // Player wins
     message = winningMessages[Math.floor(Math.random() * winningMessages.length)];
     triggerConfetti(); // Trigger confetti effect
@@ -107,7 +118,7 @@ function displayEndMessage() {
   messageElement.style.textAlign = 'center';
   messageElement.style.fontSize = '20px';
   messageElement.style.fontWeight = 'bold';
-  messageElement.style.color = currentCans >= 20 ? '#4FCB53' : '#F5402C'; // Green for win, red for lose
+  messageElement.style.color = currentCans >= gameSettings.goalCans ? '#4FCB53' : '#F5402C'; // Green for win, red for lose
   messageContainer.appendChild(messageElement);
 }
 
@@ -139,7 +150,7 @@ function resetGame() {
   clearInterval(spawnInterval); // Clear the spawn interval
   clearInterval(timer); // Clear the timer interval
   currentCans = 0; // Reset the score
-  timeLeft = 30; // Reset the timer
+  timeLeft = gameSettings.timeLimit; // Reset the timer
   document.getElementById('current-cans').textContent = currentCans; // Update the score display
   document.getElementById('timer').textContent = timeLeft; // Update the timer display
   document.querySelector('.game-grid').innerHTML = ''; // Clear the game grid
@@ -149,7 +160,28 @@ function resetGame() {
   const startButton = document.getElementById('start-game');
   startButton.disabled = false;
   startButton.textContent = 'Start Game';
+
+  // Re-enable difficulty select
+  document.getElementById('difficulty-select').disabled = false;
 }
+
+// Replace difficulty button handling with select handling
+const difficultySelect = document.getElementById('difficulty-select');
+difficultySelect.addEventListener('change', () => {
+  if (gameActive) return;
+  currentDifficulty = difficultySelect.value;
+  updateGameInstructions();
+});
+
+// Update game instructions based on difficulty
+function updateGameInstructions() {
+  const instructions = document.querySelector('.game-instructions');
+  instructions.textContent = `Collect ${DIFFICULTY_SETTINGS[currentDifficulty].goalCans} cans to complete the game!`;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  updateGameInstructions();
+});
 
 // Set up click handler for the start button
 document.getElementById('start-game').addEventListener('click', startGame);

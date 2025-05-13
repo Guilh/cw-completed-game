@@ -32,7 +32,7 @@ body {
 
 .container {
   max-width: 750px;
-  margin: 50px auto;
+  margin: 30px auto;
   background-color: #fff;
   padding: 40px;
   border-radius: 10px;
@@ -224,6 +224,42 @@ button:disabled {
 }
 
 .difficulty-btn.selected {
+  background-color: #2E9DF7;
+  color: white;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  max-width: 750px;
+  margin: 0 auto 30px;
+}
+
+.footer-content p {
+  color: #173D3A;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.footer-links a {
+  color: #2E9DF7;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.footer-links a:hover {
   background-color: #2E9DF7;
   color: white;
 }
